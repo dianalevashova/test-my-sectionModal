@@ -5,8 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build --base=/test-my-sectionModal
-/",
+    "build": "vite build --base=/test-my-sectionModal/",
     "preview": "vite preview"
   },
   "devDependencies": {
