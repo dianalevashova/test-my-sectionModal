@@ -151,6 +151,7 @@ async function handleFormBookingSubmit(event) {
       timeout: 6000,
     });
     closeBookingModal();
+    clearBookingLocalStorage();
   } catch (error) {
     if (error.status === 400) {
       iziToast.error({
@@ -191,10 +192,27 @@ const formDataBooking = {
 // name = event.target.value;
 function allLogicBookingToLocalStorage() {
   // проверить есть ли в локал сторидж значения инпутов формов и если есть записать их к инпуту;
-  checkLocalStorageValues();
+  checkBookingLocalStorageValues();
   formBooking.addEventListener('input', handleFormBookingInput);
 }
-function checkLocalStorageValues() {}
+
+function checkBookingLocalStorageValues() {
+  const storageData = JSON.parse(localStorage.getItem(STORAGE_KEY));
+  console.log(storageData);
+  if (storageData) {
+    formBooking.elements.name.value = storageData.name;
+    formBooking.elements.phone.value = storageData.phone;
+    formBooking.elements.comment.value = storageData.comment;
+  }
+}
+
+function clearBookingLocalStorage() {
+  localStorage.removeItem(STORAGE_KEY);
+  formBooking.name = '';
+  formBooking.phone = '';
+  formBooking.comment = '';
+}
+
 function handleFormBookingInput(event) {
   // const { name, phone, comment } = formDataBooking;
   console.log(event.target);
